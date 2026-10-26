@@ -1,0 +1,169 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Knesset TikTok Races</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a newsroom data desk. Header with view tabs, then the stage (canvas) beside a control rail,
+   with the shared timeline under the stage. Bloc colours are the videos' own. */
+:root {
+  --bg: #f7f9fa;
+  --surface: #ffffff;
+  --ink: #15202a;
+  --muted: #66727d;
+  --line: #dfe5ea;
+  --grid: #e3e8ec;
+  --arrow: #7a838b;
+  --accent: #17607f;
+  --accent-ink: #ffffff;
+  --right: #66aae6;
+  --change: #ec7070;
+  --font: "Heebo", "Arial Hebrew", "Noto Sans Hebrew", Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  --r: 8px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e151b; --surface: #141d25; --ink: #e5ebf0; --muted: #93a0ab; --line: #26323c;
+    --grid: #233039; --arrow: #8b97a1; --accent: #5fb2d6; --accent-ink: #0c1418; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e151b; --surface: #141d25; --ink: #e5ebf0; --muted: #93a0ab; --line: #26323c;
+  --grid: #233039; --arrow: #8b97a1; --accent: #5fb2d6; --accent-ink: #0c1418; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 var(--font);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1500px; margin: 0 auto; padding-block: 14px 28px; display: flex; flex-direction: column; gap: 12px; }
+
+header { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 10px 24px; }
+.brand h1 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.01em; text-wrap: balance; }
+.brand p { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+nav { display: flex; flex-wrap: wrap; gap: 4px; background: var(--surface); border: 1px solid var(--line);
+      border-radius: 999px; padding: 4px; }
+nav button { font: 600 14px var(--font); color: var(--muted); background: none; border: 0; border-radius: 999px;
+             padding: 6px 14px; cursor: pointer; }
+nav button[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); }
+nav button:focus-visible, .ctl:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.app { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 12px; align-items: start; }
+@media (max-width: 960px) { .app { grid-template-columns: minmax(0, 1fr); } }
+.stage { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); min-width: 0;
+         display: flex; flex-direction: column; }
+.stagehead { display: flex; justify-content: space-between; align-items: start; gap: 16px; padding: 14px 18px 0; min-height: 76px; }
+#date { font-size: 32px; font-weight: 800; line-height: 1.05; font-variant-numeric: tabular-nums; }
+#sub { color: var(--muted); font-size: 14px; margin-top: 4px; }
+#events { text-align: right; display: flex; flex-direction: column; gap: 4px; }
+#events .ev { transition: opacity .2s; }
+#events .ev b { display: block; font-size: 20px; font-weight: 800; }
+#events .ev span { color: var(--muted); font-size: 12px; }
+.canvasbox { position: relative; }
+#cv { display: block; width: 100%; touch-action: none; }
+#tip { position: absolute; pointer-events: none; background: var(--surface); color: var(--ink);
+       border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; font-size: 13px; line-height: 1.4;
+       box-shadow: 0 6px 20px rgba(0,0,0,.14); max-width: 280px; z-index: 5; }
+#tip b { font-weight: 700; }
+#tip .m { color: var(--muted); }
+#tip .row { display: flex; align-items: center; gap: 6px; }
+#tip .bar { height: 6px; border-radius: 3px; background: var(--accent); }
+#tip .hint { color: var(--muted); font-size: 11px; margin-top: 4px; }
+
+.player { display: flex; align-items: center; gap: 12px; padding: 10px 18px 14px; border-top: 1px solid var(--line); flex-wrap: wrap; }
+#play { width: 40px; height: 40px; border-radius: 50%; border: 0; background: var(--accent); color: var(--accent-ink);
+        cursor: pointer; display: grid; place-items: center; flex: none; }
+#play svg { width: 16px; height: 16px; fill: currentColor; }
+.scrub { position: relative; flex: 1 1 260px; min-width: 0; padding-top: 14px; }
+.scrub input { width: 100%; margin: 0; accent-color: var(--accent); }
+.ticks { position: absolute; left: 8px; right: 8px; top: 0; height: 12px; }
+.ticks i { position: absolute; top: 2px; width: 2px; height: 10px; background: var(--muted); border-radius: 1px;
+           transform: translateX(-1px); cursor: pointer; }
+.ticks i:hover { background: var(--accent); }
+.months { display: flex; justify-content: space-between; color: var(--muted); font-size: 11px; padding: 0 6px; }
+.speed { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 13px; }
+
+.rail { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+.card h2 { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 2px; background: var(--bg);
+       border: 1px solid var(--line); border-radius: 6px; padding: 2px; }
+.seg button { font: 600 13px var(--font); color: var(--muted); background: none; border: 0; border-radius: 4px; padding: 6px 4px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+.field { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; align-items: center; font-size: 13px; }
+.field input[type=range] { grid-column: 1 / -1; width: 100%; accent-color: var(--accent); margin: 0; }
+.field output { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+select.ctl, input.ctl { font: 14px var(--font); color: var(--ink); background: var(--surface); border: 1px solid var(--line);
+         border-radius: 6px; padding: 5px 8px; width: 100%; }
+.legend { display: flex; flex-direction: column; gap: 2px; max-height: 420px; overflow-y: auto; margin: 0 -6px; }
+.legend .grp { font-size: 12px; font-weight: 700; color: var(--muted); padding: 8px 6px 2px; }
+.legend button { display: grid; grid-template-columns: 24px minmax(0,1fr) auto; align-items: center; gap: 8px; text-align: left;
+                 font: 14px var(--font); color: var(--ink); background: none; border: 0; border-radius: 6px; padding: 4px 6px; cursor: pointer; }
+.legend button:hover { background: var(--bg); }
+.legend button[aria-pressed="true"] { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.legend .sw { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--line); object-fit: cover; }
+.legend .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.legend .nm small { color: var(--muted); font-size: 12px; margin-left: 6px; }
+.legend .v { font-family: var(--mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.legend .off { opacity: .45; }
+.notes { color: var(--muted); font-size: 13px; margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
+.small { color: var(--muted); font-size: 12px; margin: 0; }
+.linkbtn { font: 600 13px var(--font); color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; text-align: left; }
+footer { color: var(--muted); font-size: 12px; }
+@media (prefers-reduced-motion: reduce) { #events .ev { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <h1>Knesset TikTok Races</h1>
+      <p id="meta">TikTok posts by Israeli politicians</p>
+    </div>
+    <nav id="tabs" role="tablist" aria-label="Race"></nav>
+  </header>
+
+  <div class="app">
+    <section class="stage" aria-label="Animation">
+      <div class="stagehead">
+        <div><div id="date">–</div><div id="sub"></div></div>
+        <div id="events" aria-live="polite"></div>
+      </div>
+      <div class="canvasbox">
+        <canvas id="cv" aria-label="Animated chart"></canvas>
+        <div id="tip" hidden></div>
+      </div>
+      <div class="player">
+        <button id="play" aria-label="Play"><svg viewBox="0 0 16 16"><path d="M3 1.5v13l11-6.5z"/></svg></button>
+        <div class="scrub">
+          <div class="ticks" id="ticks"></div>
+          <input id="scrub" type="range" min="0" max="1" step="0.05" value="0" aria-label="Date">
+          <div class="months" id="months"></div>
+        </div>
+        <label class="speed">Speed
+          <select id="speed" class="ctl" style="width:auto">
+            <option value="3">3 days/s</option>
+            <option value="6" selected>6 days/s</option>
+            <option value="12">12 days/s</option>
+            <option value="24">24 days/s</option>
+          </select>
+        </label>
+      </div>
+    </section>
+    <aside class="rail" id="rail"></aside>
+  </div>
+  <footer>Space plays and pauses. Arrow keys step a day (Shift: a week). Event ticks on the timeline jump to that date.</footer>
+</div>
+
+<script src="data.js"></script>
+<script src="core.js"></script>
+<script src="mca.js"></script>
+<script src="bar.js"></script>
+<script src="policy.js"></script>
+<script src="bubble.js"></script>
+<script>App.start();</script>
+
+</body></html>
